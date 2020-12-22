@@ -1,84 +1,86 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-  <groupId>io.altadata</groupId>
-  <artifactId>altadata-java</artifactId>
-  <version>0.1.0</version>
-  <packaging>jar</packaging>
+    <groupId>io.altadata</groupId>
+    <artifactId>altadata-java</artifactId>
+    <version>0.1.0</version>
+    <packaging>jar</packaging>
 
-  <name>altadata-java</name>
-  <description>Functions for interacting directly with the ALTADATA API. With this Java package, developers can build applications around the ALTADATA API without having to deal with accessing and managing requests and responses.</description>
-  <url>https://github.com/altabering/altadata-java</url>
-
-  <licenses>
-		<license>
-			<name>MIT License</name>
-			<url>http://www.opensource.org/licenses/mit-license.php</url>
-			<distribution>repo</distribution>
-		</license>
-	</licenses>
-
-  <developers>
-		<developer>
-      <name>Emre Durukan</name>
-			<email>emredurukan@altadata.io</email>
-      <organization>ALTADATA</organization>
-      <organizationUrl>https://www.altadata.io</organizationUrl>
-		</developer>
-	</developers>
-
-  <scm>
-		<connection>scm:git:git://github.com/altabering/altadata-java.git</connection>
-		<developerConnection>scm:git:git@github.com:altabering/altadata-java.git</developerConnection>
+    <name>altadata-java</name>
+    <description>Functions for interacting directly with the ALTADATA API. With this Java package, developers can build
+        applications around the ALTADATA API without having to deal with accessing and managing requests and responses.
+    </description>
     <url>https://github.com/altabering/altadata-java</url>
-	</scm>
 
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>11</maven.compiler.source>
-    <maven.compiler.target>11</maven.compiler.target>
-  </properties>
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>http://www.opensource.org/licenses/mit-license.php</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
 
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <version>3.0.0-M5</version>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-failsafe-plugin</artifactId>
-        <version>3.0.0-M5</version>
-      </plugin>
-    </plugins>
-  </build>
+    <developers>
+        <developer>
+            <name>Emre Durukan</name>
+            <email>emredurukan@altadata.io</email>
+            <organization>ALTADATA</organization>
+            <organizationUrl>https://www.altadata.io</organizationUrl>
+        </developer>
+    </developers>
 
-  <dependencyManagement>
+    <scm>
+        <connection>scm:git:git://github.com/altabering/altadata-java.git</connection>
+        <developerConnection>scm:git:git@github.com:altabering/altadata-java.git</developerConnection>
+        <url>https://github.com/altabering/altadata-java</url>
+    </scm>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.0.0-M5</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>3.0.0-M5</version>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.junit</groupId>
+                <artifactId>junit-bom</artifactId>
+                <version>5.7.0</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <dependencies>
-      <dependency>
-        <groupId>org.junit</groupId>
-        <artifactId>junit-bom</artifactId>
-        <version>5.7.0</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20201115</version>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
-  </dependencyManagement>
-
-  <dependencies>
-    <dependency>
-      <groupId>org.json</groupId>
-      <artifactId>json</artifactId>
-      <version>20201115</version>
-    </dependency>
-    <dependency>
-      <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter</artifactId>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
 </project>
