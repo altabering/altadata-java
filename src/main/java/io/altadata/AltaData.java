@@ -1,6 +1,7 @@
 package io.altadata;
 
 import org.json.JSONObject;
+
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -42,7 +43,6 @@ public class AltaData {
     }
 
     /**
-     *
      * @param api_key Altadata API Key
      */
     public AltaData(String api_key) {
@@ -51,18 +51,19 @@ public class AltaData {
 
     /**
      * Initializes retrieve data process with data limit
+     *
      * @param product_code Data product code
-     * @param limit number of rows you want to retrieve
+     * @param limit        number of rows you want to retrieve
      * @return class itself
      * @throws Exception It occurs when the limit parameter is not selected properly
      */
     AltaData get_data(String product_code, Integer limit) throws Exception {
         setData_request_url(DATA_API_URL + product_code + "/?format=json&api_key=" + getApi_key());
 
-        if(limit != null){
-          if(limit < 1){
-              throw new Exception("limit parameter must be greater than 0");
-          }
+        if (limit != null) {
+            if (limit < 1) {
+                throw new Exception("limit parameter must be greater than 0");
+            }
         }
 
         int current_limit = limit == null ? -1 : limit;
@@ -73,6 +74,7 @@ public class AltaData {
 
     /**
      * Initializes retrieve data process
+     *
      * @param product_code Data product code
      * @return class itself
      */
@@ -85,8 +87,9 @@ public class AltaData {
 
     /**
      * Fetch data with configurations given before
+     *
      * @return all data as ArrayList<JSONObject>
-     * @throws IOException It may occur when making an http request.
+     * @throws IOException          It may occur when making an http request.
      * @throws InterruptedException It may occur when making an http request.
      */
     ArrayList<JSONObject> load() throws IOException, InterruptedException {
@@ -95,14 +98,13 @@ public class AltaData {
         int total_size = 1;
         int limit = getLimit();
 
-        while(true) {
+        while (true) {
             String response_json = request(getData_request_url() + "&page=" + page);
 
-            if(response_json.contains("}")){
+            if (response_json.contains("}")) {
                 String[] arrayJson = response_json.split("},");
 
-                for (int i = 0; i < arrayJson.length; i++)
-                {
+                for (int i = 0; i < arrayJson.length; i++) {
                     if (i != arrayJson.length - 1) {
                         String json_item = arrayJson[i] + "}";
                         JSONObject jo = new JSONObject(json_item);
@@ -114,24 +116,23 @@ public class AltaData {
                     }
                 }
 
-                if(limit != -1){
+                if (limit != -1) {
                     total_size += arrayJson.length;
-                    if(total_size > limit){
+                    if (total_size > limit) {
                         break;
                     }
                 }
 
                 page += 1;
-            }
-            else {
+            } else {
                 break;
             }
         }
 
-        if(limit != -1){
+        if (limit != -1) {
             ArrayList<JSONObject> limited_data = new ArrayList<>();
 
-            for(int i = 0; i < limit; i++) {
+            for (int i = 0; i < limit; i++) {
                 limited_data.add(data.get(i));
             }
 
@@ -143,13 +144,14 @@ public class AltaData {
 
     /**
      * Sort data by given column and method in the retrieve data process
+     *
      * @param order_column column to which the order is applied
      * @param order_method sorting method. Possible values: "asc" or "desc"
      * @return class itself
      * @throws Exception It occurs when the order_method parameter is not selected properly
      */
     AltaData sort(String order_column, String order_method) throws Exception {
-        if(order_method.equals("asc") || order_method.equals("desc")){
+        if (order_method.equals("asc") || order_method.equals("desc")) {
             setData_request_url(getData_request_url() + "&order_by=" + order_column + "_" + order_method);
 
             return this;
@@ -160,11 +162,12 @@ public class AltaData {
 
     /**
      * 'Equal' condition by given column and value in the retrieve data process
+     *
      * @param condition_column column to which the condition will be applied
-     * @param condition_value value to use with condition
+     * @param condition_value  value to use with condition
      * @return class itself
      */
-    AltaData equal(String condition_column, String condition_value){
+    AltaData equal(String condition_column, String condition_value) {
         setData_request_url(getData_request_url() + "&" + condition_column + "_eq=" + condition_value);
 
         return this;
@@ -172,11 +175,12 @@ public class AltaData {
 
     /**
      * 'Not Equal' condition by given column and value in the retrieve data process
+     *
      * @param condition_column column to which the condition will be applied
-     * @param condition_value value to use with condition
+     * @param condition_value  value to use with condition
      * @return class itself
      */
-    AltaData not_equal(String condition_column, String condition_value){
+    AltaData not_equal(String condition_column, String condition_value) {
         setData_request_url(getData_request_url() + "&" + condition_column + "_neq=" + condition_value);
 
         return this;
@@ -184,11 +188,12 @@ public class AltaData {
 
     /**
      * 'Greater than' condition by given column and value in the retrieve data process
+     *
      * @param condition_column column to which the condition will be applied
-     * @param condition_value value to use with condition
+     * @param condition_value  value to use with condition
      * @return class itself
      */
-    AltaData greater_than(String condition_column, String condition_value){
+    AltaData greater_than(String condition_column, String condition_value) {
         setData_request_url(getData_request_url() + "&" + condition_column + "_gt=" + condition_value);
 
         return this;
@@ -196,11 +201,12 @@ public class AltaData {
 
     /**
      * 'Greater than equal' condition by given column and value in the retrieve data process
+     *
      * @param condition_column column to which the condition will be applied
-     * @param condition_value value to use with condition
+     * @param condition_value  value to use with condition
      * @return class itself
      */
-    AltaData greater_than_equal(String condition_column, String condition_value){
+    AltaData greater_than_equal(String condition_column, String condition_value) {
         setData_request_url(getData_request_url() + "&" + condition_column + "_gte=" + condition_value);
 
         return this;
@@ -208,11 +214,12 @@ public class AltaData {
 
     /**
      * 'Less than' condition by given column and value in the retrieve data process
+     *
      * @param condition_column column to which the condition will be applied
-     * @param condition_value value to use with condition
+     * @param condition_value  value to use with condition
      * @return class itself
      */
-    AltaData less_than(String condition_column, String condition_value){
+    AltaData less_than(String condition_column, String condition_value) {
         setData_request_url(getData_request_url() + "&" + condition_column + "_lt=" + condition_value);
 
         return this;
@@ -220,11 +227,12 @@ public class AltaData {
 
     /**
      * 'Less than equal' condition by given column and value in the retrieve data process
+     *
      * @param condition_column column to which the condition will be applied
-     * @param condition_value value to use with condition
+     * @param condition_value  value to use with condition
      * @return class itself
      */
-    AltaData less_than_equal(String condition_column, String condition_value){
+    AltaData less_than_equal(String condition_column, String condition_value) {
         setData_request_url(getData_request_url() + "&" + condition_column + "_lte=" + condition_value);
 
         return this;
@@ -232,6 +240,7 @@ public class AltaData {
 
     /**
      * Select specific columns in the retrieve data process
+     *
      * @param selected_column list of columns to select
      * @return class itself
      */
@@ -244,11 +253,12 @@ public class AltaData {
 
     /**
      * 'In' condition by given column and value in the retrieve data process
+     *
      * @param condition_column column to which the condition will be applied
-     * @param condition_value value to use with condition
+     * @param condition_value  value to use with condition
      * @return class itself
      */
-    AltaData condition_in(String condition_column, String[] condition_value){
+    AltaData condition_in(String condition_column, String[] condition_value) {
         String condition_value_text = String.join(",", condition_value);
         setData_request_url(getData_request_url() + "&" + condition_column + "_in=" + condition_value_text);
 
@@ -257,11 +267,12 @@ public class AltaData {
 
     /**
      * 'Not in' condition by given column and value in the retrieve data process
+     *
      * @param condition_column column to which the condition will be applied
-     * @param condition_value value to use with condition
+     * @param condition_value  value to use with condition
      * @return class itself
      */
-    AltaData condition_not_in(String condition_column, String[] condition_value){
+    AltaData condition_not_in(String condition_column, String[] condition_value) {
         String condition_value_text = String.join(",", condition_value);
         setData_request_url(getData_request_url() + "&" + condition_column + "_notin=" + condition_value_text);
 
@@ -270,8 +281,9 @@ public class AltaData {
 
     /**
      * Retrieves customer's subscription info
+     *
      * @return subscription info as ArrayList<JSONObject>
-     * @throws IOException It may occur when making an http request.
+     * @throws IOException          It may occur when making an http request.
      * @throws InterruptedException It may occur when making an http request.
      */
     ArrayList<JSONObject> list_subscription() throws IOException, InterruptedException {
@@ -282,9 +294,8 @@ public class AltaData {
 
         String[] arrayJson = response_json.split("},\\{");
 
-        for (int i = 0; i < arrayJson.length; i++)
-        {
-            if(i == 0) {
+        for (int i = 0; i < arrayJson.length; i++) {
+            if (i == 0) {
                 String json_item = arrayJson[i] + "}";
                 JSONObject jo = new JSONObject(json_item);
                 data.add(jo);
@@ -304,9 +315,10 @@ public class AltaData {
 
     /**
      * Get data header as a Set<String>
+     *
      * @param product_code Data product code
      * @return header info as Set<String>
-     * @throws IOException It may occur when making an http request.
+     * @throws IOException          It may occur when making an http request.
      * @throws InterruptedException It may occur when making an http request.
      */
     Set<String> get_header(String product_code) throws IOException, InterruptedException {
@@ -323,9 +335,10 @@ public class AltaData {
 
     /**
      * Request API and parse the result
+     *
      * @param request_url request url to be sent to api
      * @return Parsed API response as String
-     * @throws IOException It may occur when making an http request.
+     * @throws IOException          It may occur when making an http request.
      * @throws InterruptedException It may occur when making an http request.
      */
     private String request(String request_url) throws IOException, InterruptedException {

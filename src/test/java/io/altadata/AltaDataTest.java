@@ -3,6 +3,7 @@ package io.altadata;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,8 +17,12 @@ public class AltaDataTest {
 
     @Test
     void getSubscriptionInfo() throws IOException, InterruptedException {
+        if (test_api_key == null) {
+            return;
+        }
+
         ArrayList<String> expected_result = new ArrayList<>(
-            Arrays.asList("CO_10_JHUCS_04", "CO_08_UNXXX_04", "CO_10_JHUCS_03", "CO_07_IDEAX_02")
+                Arrays.asList("CO_10_JHUCS_04", "CO_08_UNXXX_04", "CO_10_JHUCS_03", "CO_07_IDEAX_02")
         );
 
         ArrayList<String> product_code_array = new ArrayList<>();
@@ -32,13 +37,17 @@ public class AltaDataTest {
 
     @Test
     void getHeaderInfo() throws IOException, InterruptedException {
+        if (test_api_key == null) {
+            return;
+        }
+
         Set<String> expected_result = new HashSet<>(
-            Arrays.asList(
-                "reported_date", "peak_confirmed_1d_flag", "lng", "new_confirmed", "mortality_rate",
-                "people_hospitalized", "province_state", "active", "confirmed", "population", "people_tested",
-                "recovered", "incidence_rate", "prev_deaths_1d", "new_deaths", "hospitalization_rate", "testing_rate",
-                "most_deaths_1d_flag", "lat", "deaths", "prev_confirmed_1d"
-            )
+                Arrays.asList(
+                        "reported_date", "peak_confirmed_1d_flag", "lng", "new_confirmed", "mortality_rate",
+                        "people_hospitalized", "province_state", "active", "confirmed", "population", "people_tested",
+                        "recovered", "incidence_rate", "prev_deaths_1d", "new_deaths", "hospitalization_rate", "testing_rate",
+                        "most_deaths_1d_flag", "lat", "deaths", "prev_confirmed_1d"
+                )
         );
 
         Set<String> header_info = client.get_header(test_product_code);
@@ -48,6 +57,10 @@ public class AltaDataTest {
 
     @Test
     void getSortedData() throws Exception {
+        if (test_api_key == null) {
+            return;
+        }
+
         String expected_result = "2020-04-12";
         ArrayList<JSONObject> data = client.get_data(test_product_code, 10)
                 .sort("reported_date", "asc")
@@ -58,6 +71,10 @@ public class AltaDataTest {
 
     @Test
     void getSelectedData() throws Exception {
+        if (test_api_key == null) {
+            return;
+        }
+
         String[] selected_columns = {"reported_date", "province_state", "mortality_rate"};
         Set<String> expected_result = new HashSet<>(Arrays.asList(selected_columns));
 
@@ -70,6 +87,10 @@ public class AltaDataTest {
 
     @Test
     void getDataWithInCondition() throws Exception {
+        if (test_api_key == null) {
+            return;
+        }
+
         ArrayList<String> province_state_array = new ArrayList<>();
 
         String[] condition_value = {"Montana", "Utah"};
@@ -88,6 +109,10 @@ public class AltaDataTest {
 
     @Test
     void getDataWithNotInCondition() throws IOException, InterruptedException {
+        if (test_api_key == null) {
+            return;
+        }
+
         ArrayList<String> province_state_array = new ArrayList<>();
         String[] condition_value = {"Montana", "Utah", "Alabama"};
         boolean flag = true;
@@ -101,7 +126,7 @@ public class AltaDataTest {
         }
 
         for (String province_state : condition_value) {
-            if(province_state_array.contains(province_state)) {
+            if (province_state_array.contains(province_state)) {
                 flag = false;
                 break;
             }
@@ -112,6 +137,10 @@ public class AltaDataTest {
 
     @Test
     void getDataWithEqual() throws IOException, InterruptedException {
+        if (test_api_key == null) {
+            return;
+        }
+
         ArrayList<String> province_state_array = new ArrayList<>();
         String condition_value = "Montana";
         boolean flag = false;
@@ -124,7 +153,7 @@ public class AltaDataTest {
             province_state_array.add((String) jsonObject.get("province_state"));
         }
 
-        if(province_state_array.contains(condition_value)) {
+        if (province_state_array.contains(condition_value)) {
             flag = true;
         }
 
@@ -133,6 +162,10 @@ public class AltaDataTest {
 
     @Test
     void getDataWithNotEqual() throws IOException, InterruptedException {
+        if (test_api_key == null) {
+            return;
+        }
+
         ArrayList<String> province_state_array = new ArrayList<>();
         String condition_value = "Utah";
         boolean flag = true;
@@ -145,7 +178,7 @@ public class AltaDataTest {
             province_state_array.add((String) jsonObject.get("province_state"));
         }
 
-        if(province_state_array.contains(condition_value)) {
+        if (province_state_array.contains(condition_value)) {
             flag = false;
         }
 
@@ -154,10 +187,12 @@ public class AltaDataTest {
 
     @Test
     void getDataWithLimit() throws Exception {
-        int data_limit = 25;
+        if (test_api_key == null) {
+            return;
+        }
 
-        ArrayList<JSONObject> data = client.get_data(test_product_code, data_limit)
-                .load();
+        int data_limit = 25;
+        ArrayList<JSONObject> data = client.get_data(test_product_code, data_limit).load();
 
         Assertions.assertEquals(data_limit, data.size());
     }
