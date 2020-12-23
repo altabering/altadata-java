@@ -10,6 +10,9 @@ import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.Set;
 
+/**
+ * This class contains all of the AltaData API logic.
+ */
 public class AltaData {
     static final String DATA_API_URL = "https://www.altadata.io/data/api/";
     static final String SUBSCRIPTION_API_URL = "https://www.altadata.io/subscription/api/subscriptions";
@@ -18,31 +21,63 @@ public class AltaData {
     private String data_request_url;
     private int limit;
 
+    /**
+     * Get AltaData API key
+     *
+     * @return AltaData API key
+     */
     public String getApi_key() {
         return api_key;
     }
 
+    /**
+     * Set AltaData API key
+     *
+     * @param api_key AltaData API key
+     */
     public void setApi_key(String api_key) {
         this.api_key = api_key;
     }
 
+    /**
+     * Get AltaData API request URL
+     *
+     * @return AltaData API request URL
+     */
     public String getData_request_url() {
         return data_request_url;
     }
 
+    /**
+     * Set AltaData API request URL
+     *
+     * @param data_request_url AltaData API request URL
+     */
     public void setData_request_url(String data_request_url) {
         this.data_request_url = data_request_url;
     }
 
+    /**
+     * Get data limit parameter
+     *
+     * @return data limit parameter
+     */
     public int getLimit() {
         return limit;
     }
 
+    /**
+     * Set data limit parameter
+     *
+     * @param limit data limit parameter
+     */
     public void setLimit(int limit) {
         this.limit = limit;
     }
 
     /**
+     * Initialize object with Altadata API Key
+     *
      * @param api_key Altadata API Key
      */
     public AltaData(String api_key) {
