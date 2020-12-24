@@ -17,7 +17,7 @@ your project's **pom.xml** file. For example,
 <dependency>
     <groupId>io.altadata</groupId>
     <artifactId>altadata-java</artifactId>
-    <version>0.1.0</version>
+    <version>0.1.1</version>
 </dependency>
 ```
 
