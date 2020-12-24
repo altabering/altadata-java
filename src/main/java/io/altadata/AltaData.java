@@ -123,7 +123,7 @@ public class AltaData {
     /**
      * Fetch data with configurations given before
      *
-     * @return all data as ArrayList<JSONObject>
+     * @return all data
      * @throws IOException          It may occur when making an http request.
      * @throws InterruptedException It may occur when making an http request.
      */
@@ -317,7 +317,7 @@ public class AltaData {
     /**
      * Retrieves customer's subscription info
      *
-     * @return subscription info as ArrayList<JSONObject>
+     * @return subscription info
      * @throws IOException          It may occur when making an http request.
      * @throws InterruptedException It may occur when making an http request.
      */
@@ -349,10 +349,10 @@ public class AltaData {
     }
 
     /**
-     * Get data header as a Set<String>
+     * Get data header
      *
      * @param product_code Data product code
-     * @return header info as Set<String>
+     * @return header info
      * @throws IOException          It may occur when making an http request.
      * @throws InterruptedException It may occur when making an http request.
      */

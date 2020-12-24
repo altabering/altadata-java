@@ -26,7 +26,7 @@ your project's **pom.xml** file. For example,
 Obtain an API key in your dashboard and initialize the client:
 
 ```java
-import io.altadata;
+import io.altadata.AltaData;
 
 AltaData client=new AltaData("YOUR_API_KEY");
 ```
