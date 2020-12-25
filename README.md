@@ -2,6 +2,7 @@
 
 [![Build status](https://github.com/altabering/altadata-java/workflows/build/badge.svg)](https://github.com/altabering/altadata-java/actions)
 [![Maven central](https://img.shields.io/maven-central/v/io.altadata/altadata-java)](https://search.maven.org/artifact/io.altadata/altadata-java)
+[![javadoc](https://javadoc.io/badge2/io.altadata/altadata-java/javadoc.svg)](https://javadoc.io/doc/io.altadata/altadata-java)
 
 [ALTADATA](https://www.altadata.io) Java package provides convenient access to the ALTADATA API from applications
 written in the Java language. With this Java package, developers can build applications around the ALTADATA API without
@@ -28,7 +29,7 @@ Obtain an API key in your dashboard and initialize the client:
 ```java
 import io.altadata.AltaData;
 
-AltaData client=new AltaData("YOUR_API_KEY");
+AltaData client = new AltaData("YOUR_API_KEY");
 ```
 
 ## Retrieving Data
@@ -36,7 +37,7 @@ AltaData client=new AltaData("YOUR_API_KEY");
 You can get the entire data with the code below.
 
 ```java
-ArrayList<JSONObject> data=client.get_data("PRODUCT_CODE").load();
+ArrayList<JSONObject> data = client.get_data("PRODUCT_CODE").load();
 ```
 
 ## Retrieving Subscription Info
@@ -44,7 +45,7 @@ ArrayList<JSONObject> data=client.get_data("PRODUCT_CODE").load();
 You can get your subscription info with the code below.
 
 ```java
-ArrayList<JSONObject> subscription_info=client.list_subscription();
+ArrayList<JSONObject> subscription_info = client.list_subscription();
 ```
 
 ## Retrieving Data Header Info
@@ -52,7 +53,7 @@ ArrayList<JSONObject> subscription_info=client.list_subscription();
 You can get your data header with the code below.
 
 ```java
-Set<String> header_info=client.get_header(test_product_code);
+Set<String> header_info = client.get_header("PRODUCT_CODE");
 ```
 
 ## Retrieving Data with Conditions
@@ -66,31 +67,31 @@ The columns you can apply these filter operations to are limited to the **filter
 ### equal condition
 
 ```java
-String product_code="co_10_jhucs_03";
+String product_code = "co_10_jhucs_03";
 
-        ArrayList<JSONObject> data=client.get_data(product_code)
-        .equal("province_state","Alabama")
-        .load();
+ArrayList<JSONObject> data = client.get_data(product_code)
+    .equal("province_state", "Alabama")
+    .load();
 ```
 
 ### not equal condition
 
 ```java
-String product_code="co_10_jhucs_03";
+String product_code = "co_10_jhucs_03";
 
-        ArrayList<JSONObject> data=client.get_data(product_code)
-        .not_equal("province_state","Montana")
-        .load();
+ArrayList<JSONObject> data = client.get_data(product_code)
+    .not_equal("province_state", "Montana")
+    .load();
 ```
 
 ### in condition
 
 ```java
-String product_code="co_10_jhucs_03";
+String product_code = "co_10_jhucs_03";
 
-        ArrayList<JSONObject> data=client.get_data(product_code)
-        .condition_in("province_state",new String[]{"Montana","Utah"})
-        .load();
+ArrayList<JSONObject> data = client.get_data(product_code)
+    .condition_in("province_state", new String[]{"Montana", "Utah"})
+    .load();
 ```
 
 > condition_value parameter of condition_in method must be Array
@@ -98,11 +99,11 @@ String product_code="co_10_jhucs_03";
 ### not in condition
 
 ```java
-String product_code="co_10_jhucs_03";
+String product_code = "co_10_jhucs_03";
 
-        ArrayList<JSONObject> data=client.get_data(product_code)
-        .condition_not_in("province_state",new String[]{"Montana","Utah","Alabama"})
-        .load();
+ArrayList<JSONObject> data = client.get_data(product_code)
+    .condition_not_in("province_state", new String[]{"Montana", "Utah", "Alabama"})
+    .load();
 ```
 
 > condition_value parameter of condition_not_in method must be Array
@@ -110,12 +111,12 @@ String product_code="co_10_jhucs_03";
 ### sort operation
 
 ```java
-String product_code="co_10_jhucs_03";
-        String order_method="desc";
+String product_code = "co_10_jhucs_03";
+String order_method = "desc";
 
-        ArrayList<JSONObject> data=client.get_data(product_code)
-        .sort("reported_date",order_method)
-        .load();
+ArrayList<JSONObject> data = client.get_data(product_code)
+    .sort("reported_date", order_method)
+    .load();
 ```
 
 > Default value of order_method parameter is 'asc' and order_method parameter must be "asc" or "desc"
@@ -123,12 +124,12 @@ String product_code="co_10_jhucs_03";
 ### select specific columns
 
 ```java
-String product_code="co_10_jhucs_03";
-        String[]selected_column={"reported_date","province_state","mortality_rate"};
+String product_code = "co_10_jhucs_03";
+String[]selected_column = {"reported_date", "province_state", "mortality_rate"};
 
-        ArrayList<JSONObject> data=client.get_data(product_code)
-        .select(selected_column)
-        .load();
+ArrayList<JSONObject> data = client.get_data(product_code)
+    .select(selected_column)
+    .load();
 ```
 
 > selected_column parameter of select method must be Array
@@ -136,11 +137,10 @@ String product_code="co_10_jhucs_03";
 ### get the specified amount of data
 
 ```java
-String product_code="co_10_jhucs_03";
-        int data_limit=20;
+String product_code = "co_10_jhucs_03";
+int data_limit = 20;
 
-        ArrayList<JSONObject> data=client.get_data(product_code,data_limit)
-        .load();
+ArrayList<JSONObject> data = client.get_data(product_code, data_limit).load();
 ```
 
 ## Retrieving Data with Multiple Conditions
@@ -148,16 +148,16 @@ String product_code="co_10_jhucs_03";
 You can use multiple condition at same time.
 
 ```java
-String product_code="co_10_jhucs_03";
-        int data_limit=100;
-        String order_method="desc";
-        String[]selected_column={"reported_date","province_state","mortality_rate"};
+String product_code = "co_10_jhucs_03";
+int data_limit = 100;
+String order_method = "desc";
+String[] selected_column = {"reported_date", "province_state", "mortality_rate"};
 
-        ArrayList<JSONObject> data=client.get_data(product_code,data_limit)
-        .condition_in("province_state",new String[]{"Montana","Utah"})
-        .sort("mortality_rate",order_method)
-        .select(selected_column)
-        .load();
+ArrayList<JSONObject> data = client.get_data(product_code, data_limit)
+    .condition_in("province_state", new String[]{"Montana", "Utah"})
+    .sort("mortality_rate", order_method)
+    .select(selected_column)
+    .load();
 ```
 
 ## License
