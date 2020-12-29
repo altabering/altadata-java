@@ -4,8 +4,7 @@
 [![Maven central](https://img.shields.io/maven-central/v/io.altadata/altadata-java)](https://search.maven.org/artifact/io.altadata/altadata-java)
 [![javadoc](https://javadoc.io/badge2/io.altadata/altadata-java/javadoc.svg)](https://javadoc.io/doc/io.altadata/altadata-java)
 
-[ALTADATA](https://www.altadata.io) Java package provides convenient access to the ALTADATA API from applications
-written in the Java language. With this Java package, developers can build applications around the ALTADATA API without
+[ALTADATA](https://www.altadata.io) is a Curated Data Marketplace. This Java package provides convenient access to the ALTADATA API from applications written in the Java language. With this Java package, developers can build applications around the ALTADATA API without
 having to deal with accessing and managing requests and responses.
 
 ## Installing with Maven
@@ -162,5 +161,4 @@ ArrayList<JSONObject> data = client.get_data(product_code, data_limit)
 
 ## License
 
-The gem is available as open source under the terms of
-the [MIT License](https://github.com/altabering/altadata-java/blob/master/LICENSE).
+altadata-java is under [MIT license](https://github.com/altabering/altadata-java/blob/master/LICENSE). See the LICENSE file for more info.
